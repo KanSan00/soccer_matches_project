@@ -33,8 +33,7 @@
                         <select class="form-select" id="year" name="year">
                             <option value="">すべて</option>
                             {% for y in years %}
-                            <option value="{{ y|date:'Y' }}" {% if year == y|date:'Y' %}selected{% endif %}>{{ y|date:'Y'
-                                }}年</option>
+                            <option value="{{ y|date:'Y' }}" {% if year == y|date:'Y' %}selected{% endif %}>{{ y|date:'Y' }}年</option>
                             {% endfor %}
                         </select>
                     </div>
