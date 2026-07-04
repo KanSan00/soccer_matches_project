@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block title %}{{ match.date }} vs {{ match.opponent }}{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow">
+            <!-- ヘッダー部分（勝敗に応じた色分け） -->
+            <div
+                class="card-header {% if match.result == 'W' %}bg-success{% elif match.result == 'D' %}bg-warning text-dark{% else %}bg-danger{% endif %} text-white py-3 text-center">
+                <h4 class="mb-0">
+                    {% if match.result == 'W' %}【勝利】{% elif match.result == 'D' %}【引き分け】{% else %}【敗戦】{% endif %}
+                    {{ match.date }} vs {{ match.opponent }}
+                </h4>
+            </div>
+
+            <div class="card-body">
+                <div class="text-center my-4">
+                    <span class="fs-6 text-muted">{{ match.tournament }}</span>
+                    <div class="d-flex justify-content-center align-items-center mt-2">
+                        <span class="fs-2 fw-bold">日本</span>
+                        <span class="fs-1 fw-extrabold mx-4">{{ match.japan_score }} - {{ match.opponent_score }}</span>
+                        <span class="fs-2 fw-bold">{{ match.opponent }}</span>
+                    </div>
+                </div>
+                <hr>
+                <!-- 詳細データグリッド -->
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <th class="table-light" style="width: 25%;">開催日</th>
+                            <td>{{ match.date }}</td>
+                        </tr>
+                        <tr>
+                            <th class="table-light">開催地 / スタジアム</th>
+                            <td>{{ match.venue }}</td>
+                        </tr>
+                        <tr>
+                            <th class="table-light">監督</th>
+                            <td>{{ match.manager|default:"-" }}</td>
+                        </tr>
+                        <tr>
+                            <th class="table-light">得点者 (日本)</th>
+                            <td>{{ match.scorers|linebreaksbr|default:"なし" }}</td>
+                        </tr>
+                        <tr>
+                            <th class="table-light">メモ / 試合概要</th>
+                            <td>{{ match.notes|linebreaksbr|default:"記載なし" }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="d-grid gap-2 col-6 mx-auto mt-4">
+                    <a href="{% url 'matches:match_list' %}" class="btn btn-outline-secondary">一覧に戻る</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
